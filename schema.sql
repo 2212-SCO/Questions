@@ -9,8 +9,8 @@ CREATE TABLE questions (
   date_written TIMESTAMP NOT NULL,
   asker_name VARCHAR(30) NOT NULL,
   asker_email VARCHAR(256) NOT NULL,
-  helpfulness INT NOT NULL DEFAULT 0,
-  reported BOOLEAN NOT NULL DEFAULT FALSE
+  reported BOOLEAN NOT NULL DEFAULT FALSE,
+  helpful INT NOT NULL DEFAULT 0
 )
 
 CREATE TABLE answers (
@@ -23,6 +23,8 @@ CREATE TABLE answers (
   reported BOOLEAN NOT NULL DEFAULT FALSE,
   reported INT NOT NULL DEFAULT 0
 )
+
+-- CREATE INDEX answers_question_id_idx ON answers (question_id);
 
 CREATE TABLE photos (
   id SERIAL PRIMARY KEY,

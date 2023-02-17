@@ -1,0 +1,23 @@
+{
+  "name": "questions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2212-SCO/Questions.git"
+  },
+  "author": "gk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2212-SCO/Questions/issues"
+  },
+  "homepage": "https://github.com/2212-SCO/Questions#readme",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0"
+  }
+}
