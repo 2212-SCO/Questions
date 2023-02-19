@@ -5,13 +5,18 @@ const Transform = require('stream').Transform;
 const csvStringifier = createCsvStringifier({
   header: [
     { id: 'id', title: 'ID' },
-    { id: 'answer_id', title: 'Answer ID' },
-    { id: 'url', title: 'URL' }
+    { id: 'product_id', title: 'Product ID' },
+    { id: 'body', title: 'Body' },
+    { id: 'date_written', title: 'Date Written' },
+    { id: 'asker_name', title: 'Asker Name' },
+    { id: 'asker_email', title: 'Asker Email' },
+    { id: 'reported', title: 'Reported' },
+    { id: 'helpful', title: 'Helpful' },
   ],
 });
 
-let readStream = fs.createReadStream('data/raw-data/answers_photos.csv');
-let writeStream = fs.createWriteStream('data/clean-data/answers_photos.csv');
+let readStream = fs.createReadStream('data/raw-data/test.csv');
+let writeStream = fs.createWriteStream('data/clean-data/test.csv');
 
 class CSVCleaner extends Transform {
   constructor(options) {
@@ -26,9 +31,11 @@ class CSVCleaner extends Transform {
       if (key !== trimKey) { delete chunk[key]; }
     }
     // removes white space
-    chunk.url = chunk.url.trim();
+    chunk.body = chunk.body.trim();
     //filters out all non-number characters
     chunk.id = chunk.id.replace(/\D/g, '');
+    // changes date from unix timestamp to iso string
+    chunk.date_written = new Date(parseInt(chunk.date_written)).toISOString();
     //uses our csvStringifier to turn our chunk into a csv string
     chunk = csvStringifier.stringifyRecords([chunk]);
     this.push(chunk);

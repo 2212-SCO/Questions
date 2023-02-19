@@ -24,20 +24,20 @@ class CSVCleaner extends Transform {
   }
 
   _transform(chunk, encoding, next) {
-    // for (let key in chunk) {
-    //   //trims whitespace
-    //   let trimKey = key.trim();
-    //   chunk[trimKey] = chunk[key];
-    //   if (key !== trimKey) { delete chunk[key]; }
-    // }
-
+    for (let key in chunk) {
+      //trims whitespace
+      let trimKey = key.trim();
+      chunk[trimKey] = chunk[key];
+      if (key !== trimKey) { delete chunk[key]; }
+    }
     // removes white space
     chunk.body = chunk.body.trim();
     //filters out all non-number characters
     chunk.id = chunk.id.replace(/\D/g, '');
+    // changes date from unix timestamp to iso string
+    chunk.date_written = new Date(parseInt(chunk.date_written)).toISOString();
     //uses our csvStringifier to turn our chunk into a csv string
     chunk = csvStringifier.stringifyRecords([chunk]);
-
     this.push(chunk);
     next();
   }
