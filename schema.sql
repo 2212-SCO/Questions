@@ -32,9 +32,14 @@ CREATE TABLE photos (
   photo_url VARCHAR(512) NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS questions_id_idx ON questions (id);
-CREATE INDEX IF NOT EXISTS answers_id_idx ON answers (id);
+-- DROP INDEX questions_product_id_idx;
+-- DROP INDEX answers_questions_id_idx;
+-- DROP INDEX photos_answer_id_idx;
+CREATE INDEX IF NOT EXISTS questions_product_id_idx ON questions (product_id);
+CREATE INDEX IF NOT EXISTS answers_questions_id_idx ON answers (questions_id);
+CREATE INDEX IF NOT EXISTS photos_answer_id_idx ON photos (answer_id);
 CREATE INDEX IF NOT EXISTS questions_reported_idx ON questions (reported) WHERE reported = false;
+
 
 \COPY questions FROM 'data/clean-data/questions.csv' WITH (FORMAT csv, HEADER true);
 \COPY answers FROM 'data/clean-data/answers.csv' WITH (FORMAT csv, HEADER true);

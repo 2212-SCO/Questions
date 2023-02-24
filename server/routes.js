@@ -4,11 +4,4 @@ const controller = require('./controller');
 
 router.get('/questions', controller.getQuestions);
 
-
-
-
-
-
-
-
 module.exports = router;
